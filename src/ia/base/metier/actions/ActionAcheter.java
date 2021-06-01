@@ -10,37 +10,33 @@ import ia.base.metier.carte.ressources.TypeRessource;
 
 /**
  *
- * @author dg447135
+ * @author David
  */
-public class ActionCouperArbre extends Action{
-    
-    private TypeMouvement directionArbre;
-    
-    public ActionCouperArbre(TypeMouvement directionArbre) {
-        this.directionArbre = directionArbre;
-    }
+public class ActionAcheter extends Action{
 
+    private TypeRessource typeRessource;
+    
+    public ActionAcheter(TypeRessource typeRessource) {
+        this.typeRessource = typeRessource;
+    }
+    
     @Override
     public String getMessage() {
-        String res;
-        res = "HARVEST|";
-        res += directionArbre;
-        return res;
+        return "BUY|" + typeRessource + "|1";
     }
 
     @Override
     public TypeAction getType() {
-        return TypeAction.RECOLTE;
+        return TypeAction.ACHAT;
     }
 
     @Override
     public TypeMouvement getDirection() {
-        return this.directionArbre;
+        return null;
     }
     
     @Override
     public TypeRessource getTypeRessource() {
-        return null;
+        return typeRessource;
     }
-    
 }

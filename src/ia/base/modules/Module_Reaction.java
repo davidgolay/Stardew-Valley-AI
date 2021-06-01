@@ -23,8 +23,8 @@ public class Module_Reaction extends Module {
      */
     public void reagirAuMessageRecu(String messageEnvoye, String messageRecu) {
         switch(messageEnvoye) {
-            case "MAP" : reactionCarte(messageRecu);
-            break;
+            case "MAP" : reactionCarte(messageRecu); break;
+            case "STORE":reactionMagasin(messageRecu); break;
         }
     }
     
@@ -34,6 +34,14 @@ public class Module_Reaction extends Module {
     */
     private void reactionCarte(String messageRecu) {
         this.getIA().getModuleMemoire().genererCarte(messageRecu);
+    }
+    
+    private void reactionMagasin(String messageRecu){
+        // récupération du nombre de graines
+        // de panais et de choux-fleurs disponibles
+        String[] seeds; 
+        seeds = messageRecu.split("\\|");      
+        this.getIA().getModuleMemoire().genererStockMagasin(Integer.parseInt(seeds[0]), Integer.parseInt(seeds[1]));
     }
 
 }

@@ -6,6 +6,7 @@
 package ia.base.metier.actions;
 
 import ia.base.metier.TypeMouvement;
+import ia.base.metier.carte.ressources.TypeRessource;
 
 /**
  *
@@ -18,5 +19,7 @@ public abstract class Action {
     public abstract TypeAction getType();
     
     public abstract TypeMouvement getDirection();
+    
+    public abstract TypeRessource getTypeRessource();
     
 }

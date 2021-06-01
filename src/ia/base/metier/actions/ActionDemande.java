@@ -6,6 +6,7 @@
 package ia.base.metier.actions;
 
 import ia.base.metier.TypeMouvement;
+import ia.base.metier.carte.ressources.TypeRessource;
 
 /**
  *
@@ -32,6 +33,11 @@ public class ActionDemande extends Action {
 
     @Override
     public TypeMouvement getDirection() {
+        return null;
+    }
+    
+    @Override
+    public TypeRessource getTypeRessource() {
         return null;
     }
     

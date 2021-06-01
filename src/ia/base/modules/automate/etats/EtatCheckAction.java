@@ -26,7 +26,8 @@ public class EtatCheckAction extends Etat{
         if(!getAutomate().getListeDesActionsARealiser().isEmpty()){
             etat = new EtatRealiserAction(this.getAutomate());           
         } else {
-            etat = new EtatAllerVersArbre(this.getAutomate());
+            //etat = new EtatAllerVersArbre(this.getAutomate());
+            etat = new EtatAcheter(this.getAutomate());
         }
         return etat;
     }

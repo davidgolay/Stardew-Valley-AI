@@ -31,11 +31,9 @@ public class Module_Memoire extends Module  {
         this.inventaire = new HashMap<>();
         this.stockMagasin = null;
         for (TypeRessource ressources : TypeRessource.values()) {
-            //si ce n'est pas de l'or
             if(ressources != TypeRessource.GOLD)
             this.inventaire.put(ressources, 0);
             
-            //si c'est de l'or
             else if (ressources == TypeRessource.GOLD){
                 this.inventaire.put(ressources, 500);
             }           
@@ -52,15 +50,38 @@ public class Module_Memoire extends Module  {
     }
     
     public void effectuerAction(Action action){
-        if(action.getType() == TypeAction.MOUVEMENT) {
-            this.joueur.deplacer(action.getDirection()) ;
-        }
-        else if(action.getType() == TypeAction.RECOLTE) {
-            if(action.getDirection() != null) {
-                Case caseDestination = this.carte.getCase(this.getCaseJoueur().
-                getCoordonnee().getVoisin(action.getDirection())) ;
-                caseDestination.setObjet(null) ;
-            }
+        if(null != action.getType()) switch (action.getType()) {
+            case MOUVEMENT:
+                this.joueur.deplacer(action.getDirection()) ;
+                break;
+                
+            case RECOLTE:
+                if(action.getDirection() != null) {
+                    Case caseDestination = this.carte.getCase(this.getCaseJoueur().
+                            getCoordonnee().getVoisin(action.getDirection())) ;
+                    caseDestination.setObjet(null) ;
+                }   
+                break;
+                
+            case ACTIONSTATIQUE:
+                this.stockMagasin = null;
+                break;
+                
+            case ACHAT:
+                if(action.getTypeRessource() == TypeRessource.PARSNIPSEED){
+                    this.inventaire.put(TypeRessource.GOLD, inventaire.get(TypeRessource.GOLD) - 20);
+                    this.inventaire.put(TypeRessource.PARSNIPSEED, inventaire.get(TypeRessource.PARSNIPSEED) + 1);
+                    this.stockMagasin.put(TypeRessource.PARSNIPSEED, stockMagasin.get(TypeRessource.PARSNIPSEED) - 1 );
+                    
+                }else if(action.getTypeRessource() == TypeRessource.CAULIFLOWERSEED){
+                    this.inventaire.put(TypeRessource.GOLD, inventaire.get(TypeRessource.GOLD) - 80);
+                    this.inventaire.put(TypeRessource.CAULIFLOWERSEED, inventaire.get(TypeRessource.CAULIFLOWERSEED) + 1);
+                    this.stockMagasin.put(TypeRessource.CAULIFLOWERSEED, stockMagasin.get(TypeRessource.CAULIFLOWERSEED) - 1);
+                }
+                break;
+                
+//            default:
+//                break;
         }
     }
     
@@ -117,5 +138,24 @@ public class Module_Memoire extends Module  {
      */
     public int getQuantiteRessource(TypeRessource type){
         return this.inventaire.get(type);
+    }
+    
+    public void genererStockMagasin(int nbGrainePanais, int nbGraineChouxFleur){
+        //initialisation du stock magasin
+        this.stockMagasin = new HashMap<>();
+        stockMagasin.put(TypeRessource.PARSNIPSEED, nbGrainePanais);
+        stockMagasin.put(TypeRessource.CAULIFLOWERSEED, nbGraineChouxFleur);
+    }
+    
+    public boolean hasStockMagasin(){
+        boolean res = true;
+        if(this.stockMagasin == null){
+            res = false;
+        }
+        return res;
+    }
+    
+    public int getStockMagasin(TypeRessource type){
+        return this.stockMagasin.get(type);
     }
 }

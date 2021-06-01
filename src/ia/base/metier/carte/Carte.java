@@ -9,8 +9,7 @@ import ia.base.metier.TypeMouvement;
 import ia.base.metier.carte.cases.Case;
 import ia.base.metier.carte.cases.FabriqueCase;
 import ia.base.metier.carte.cases.TypeCase;
-import static ia.base.metier.carte.cases.TypeCase.TERRE;
-import ia.base.metier.carte.objets.TypeObjet;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -23,6 +22,7 @@ public class Carte {
     private HashMap<Coordonnee, Case> cases;
     private int taille;
     private Coordonnee coordonneeDepart;
+    private ArrayList<Coordonnee> coordonneesMagasin;
     
     public Carte(String messageRecu) {
         
@@ -32,7 +32,7 @@ public class Carte {
             for(int j=0 ; j<this.taille ; j++) {
                 this.ajouterCase(new Coordonnee(i,j), messageRecu.charAt(j+this.taille*i));
             }
-        }
+        }     
         
         //Modifications des cases concernées en escalier 'S'
         Case escalierCentre = FabriqueCase.creer(coordonneeDepart.getVoisin(TypeMouvement.BOTTOM), 'S');
@@ -46,6 +46,11 @@ public class Carte {
 //        System.out.println("Case centre escalier:" + this.cases.get(coordonneeDepart.getVoisin(TypeMouvement.BOTTOM)).toString());      
 //        System.out.println("Case gauche escalier:" + this.cases.get(coordonneeDepart.getVoisin(TypeMouvement.BOTTOM).getVoisin(TypeMouvement.LEFT)).toString());
 //        System.out.println("Case droite escalier:" + this.cases.get(coordonneeDepart.getVoisin(TypeMouvement.BOTTOM).getVoisin(TypeMouvement.RIGHT)).toString());
+
+        //setup coordonnée magasin
+        this.coordonneesMagasin = new ArrayList<>();
+        this.coordonneesMagasin.add(0, new Coordonnee(coordonneeDepart.getLigne()+2, coordonneeDepart.getColonne() -4));
+        this.coordonneesMagasin.add(1, new Coordonnee(coordonneeDepart.getLigne()+2, coordonneeDepart.getColonne() -3));
         
         //Gestions des voisins
         for(int i=0 ;i<this.taille ;i++) {
@@ -133,5 +138,9 @@ public class Carte {
             System.out.println("");
         }
     }  
+
+    public ArrayList<Coordonnee> getCoordonneesMagasin() {
+        return coordonneesMagasin;
+    }
     
 }

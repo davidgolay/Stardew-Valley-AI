@@ -6,6 +6,7 @@
 package ia.base.metier.actions;
 
 import ia.base.metier.TypeMouvement;
+import ia.base.metier.carte.ressources.TypeRessource;
 
 /**
  *
@@ -22,6 +23,7 @@ public class FabriqueAction {
         Action actionDemande = null;
         switch(demande){
             case CARTE: actionDemande = new ActionDemande("MAP"); break;
+            case MAGASIN: actionDemande = new ActionDemande("STORE"); break;
         }
         return actionDemande;      
     }
@@ -41,6 +43,22 @@ public class FabriqueAction {
                 break;
         }
         return actionRecolte;
+    }
+    
+    public static Action creerActionAcheter(TypeRessource typeRessource){
+        Action action = null;
+        switch(typeRessource){
+            case PARSNIPSEED:
+                action = new ActionAcheter(TypeRessource.PARSNIPSEED);
+                break;
+            case CAULIFLOWERSEED:
+                action = new ActionAcheter(TypeRessource.CAULIFLOWERSEED);
+                break;
+//            case CHICKEN:
+//                action = new ActionAcheter(TypeRessource.CHICKEN);
+//                break;                
+        }
+        return action;
     }
     
 }
