@@ -19,7 +19,8 @@ public class Module_Memoire extends Module  {
     
     private Carte carte;
     private Joueur joueur;
-    private HashMap<TypeRessource, Integer> inventaire;   
+    private HashMap<TypeRessource, Integer> inventaire;
+    private HashMap<TypeRessource, Integer> stockMagasin;
     
     /**
      * Constructeur
@@ -28,6 +29,7 @@ public class Module_Memoire extends Module  {
     public Module_Memoire(IA ia) {
         super(ia);
         this.inventaire = new HashMap<>();
+        this.stockMagasin = null;
         for (TypeRessource ressources : TypeRessource.values()) {
             //si ce n'est pas de l'or
             if(ressources != TypeRessource.GOLD)
@@ -107,20 +109,13 @@ public class Module_Memoire extends Module  {
         }
     }
     
-
-//    private void recolter(Objet objet){
-//        if(objet != null){ 
-//            for (TypeRessource ressourceInven: inventaire.keySet()) {
-//                for (TypeRessource ressourceObjet : objet.getLoot().keySet()) {
-//                   if(ressourceInven == ressourceObjet){
-//                       this.inventaire.put(ressourceObjet, inventaire.get(ressourceObjet) + objet.getLoot().get(ressourceObjet));
-//                   } 
-//                }
-//            }
-//        }       
-//    }
-    
-    
-    
-
+     /**
+     * Methode qui récupére la quantité d'une ressource de 
+     * l'inventaire
+     * @param type type de ressource
+     * @return la quantité de la ressource
+     */
+    public int getQuantiteRessource(TypeRessource type){
+        return this.inventaire.get(type);
+    }
 }

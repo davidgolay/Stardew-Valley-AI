@@ -10,5 +10,5 @@ package ia.base.metier.actions;
  * @author David
  */
 public enum TypeDemande {
-    CARTE;   
+    CARTE, MAGASIN;   
 }
